@@ -73,4 +73,4 @@ rm -rf ~/.cache/*
 
 ## Report  
 
-- Seems like image step doesn't affect the result so much;  
+

@@ -151,9 +151,10 @@ int main(int argc, const char *argv[])
         cv::cvtColor(dataBuffer.getItem(1)->cameraImg, imgGray, cv::COLOR_BGR2GRAY);
 
         // extract 2D keypoints from current image
-        vector<cv::KeyPoint> keypoints; // create empty feature list for current image
         // string detectorType = "SHITOMASI";
         string detectorType = argv[1]; // get type from arguments
+
+        vector<cv::KeyPoint> keypoints; // create empty feature list for current image
 
         if (detectorType.compare("SHITOMASI") == 0)
         {
@@ -190,9 +191,11 @@ int main(int argc, const char *argv[])
 
         /* EXTRACT KEYPOINT DESCRIPTORS */
 
-        cv::Mat descriptors;
+        
         // string descriptorType = "BRISK"; // BRISK, BRIEF, ORB, FREAK, AKAZE, SIFT
         string descriptorType = argv[2]; // get type from arguments
+
+        cv::Mat descriptors;
         descKeypoints(dataBuffer.getItem(1)->keypoints, dataBuffer.getItem(1)->cameraImg, descriptors, descriptorType);
 
         // push descriptors for current frame to end of data buffer
@@ -208,11 +211,10 @@ int main(int argc, const char *argv[])
 
             vector<cv::DMatch> matches;
             string matcherType = "MAT_BF"; // MAT_BF, MAT_FLANN
-            string descriptorType;
-            if ( descriptorType == "SIFT" )
-                descriptorType = "DES_HOG"; // DES_BINARY, DES_HOG
+            if ( descriptorType.compare("SIFT") == 0 )
+                descriptorType = "DES_HOG"; 
             else
-                descriptorType = "DES_BINARY"; // DES_BINARY, DES_HOG
+                descriptorType = "DES_BINARY"; 
             string selectorType = "SEL_NN"; // SEL_NN, SEL_KNN
 
             matchDescriptors(dataBuffer.getItem(2)->keypoints, dataBuffer.getItem(1)->keypoints,

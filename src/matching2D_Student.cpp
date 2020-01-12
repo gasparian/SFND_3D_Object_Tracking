@@ -12,12 +12,7 @@ void matchDescriptors(std::vector<cv::KeyPoint> &kPtsSource, std::vector<cv::Key
     cv::Ptr<cv::DescriptorMatcher> matcher;
     int normType = descriptorType.compare("DES_BINARY") == 0 ? cv::NORM_HAMMING : cv::NORM_L2;
 
-    if (matcherType.compare("MAT_BF") == 0) 
-    {
-        matcher = cv::BFMatcher::create(normType, crossCheck);
-    }
-    else if (matcherType.compare("MAT_FLANN") == 0)
-    {
+    if ( (matcherType.compare("MAT_FLANN") == 0) || (descriptorType.compare("DES_HOG") == 0) ) {
         // https://answers.opencv.org/question/503/how-to-use-the-lshindexparams/
         // OpenCV bug workaround : convert binary descriptors to floating point due to a bug in current OpenCV implementation
         if (descSource.type() != CV_32F)
@@ -28,7 +23,14 @@ void matchDescriptors(std::vector<cv::KeyPoint> &kPtsSource, std::vector<cv::Key
         {
             descRef.convertTo(descRef, CV_32F);
         }
-        
+    }
+
+    if (matcherType.compare("MAT_BF") == 0) 
+    {
+        matcher = cv::BFMatcher::create(normType, crossCheck);
+    }
+    else if (matcherType.compare("MAT_FLANN") == 0)
+    {   
         matcher = cv::FlannBasedMatcher::create();
     }
 
