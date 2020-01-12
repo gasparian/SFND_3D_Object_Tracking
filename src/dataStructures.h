@@ -37,4 +37,33 @@ struct DataFrame { // represents the available sensor information at the same ti
     std::map<int,int> bbMatches; // bounding box matches between previous and current frame
 };
 
+template<typename T> 
+class CircBuf {
+public:
+  CircBuf(int sizeIn) { buf_size = sizeIn; };
+  int size() const { return count; }
+  bool empty() const { return count == 0; }
+  bool full() const { return count == buf_size; }
+  void remove() {
+      if ( !empty() )
+        data.erase(data.begin());
+        count--;
+  }
+  void push_back(const T& inp) {
+      if ( full() )
+        remove();
+      data.push_back(inp);
+      count++;
+  }
+  typename std::vector<T>::iterator getItem(int n) {
+    n = std::min({n, buf_size});
+    return (data.end() - n);
+  }
+
+private:
+  int buf_size = 0;
+  int count = 0;
+  std::vector<T> data;
+};
+
 #endif /* dataStructures_h */

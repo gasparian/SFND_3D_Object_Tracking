@@ -15,7 +15,7 @@ using namespace std;
 // detects objects in an image using the YOLO library and a set of pre-trained objects from the COCO database;
 // a set of 80 classes is listed in "coco.names" and pre-trained weights are stored in "yolov3.weights"
 void detectObjects(cv::Mat& img, std::vector<BoundingBox>& bBoxes, float confThreshold, float nmsThreshold, 
-                   std::string basePath, std::string classesFile, std::string modelConfiguration, std::string modelWeights, bool bVis)
+                   std::string basePath, std::string classesFile, std::string modelConfiguration, std::string modelWeights, bool bVis, std::string imgName)
 {
     // load class names from file
     vector<string> classes;
@@ -111,6 +111,7 @@ void detectObjects(cv::Mat& img, std::vector<BoundingBox>& bBoxes, float confThr
             
             string label = cv::format("%.2f", (*it).confidence);
             label = classes[((*it).classID)] + ":" + label;
+            label = "[" + to_string(it->boxID) + "] " + label;
         
             // Display label at the top of the bounding box
             int baseLine;
@@ -121,9 +122,10 @@ void detectObjects(cv::Mat& img, std::vector<BoundingBox>& bBoxes, float confThr
             
         }
         
-        string windowName = "Object classification";
-        cv::namedWindow( windowName, 1 );
-        cv::imshow( windowName, visImg );
-        cv::waitKey(0); // wait for key to be pressed
+        // string windowName = "Object classification";
+        // cv::namedWindow( windowName, 1 );
+        // cv::imshow( windowName, visImg );
+        cv::imwrite( "../output/detection_"+imgName, visImg );
+        // cv::waitKey(0); // wait for key to be pressed
     }
 }
