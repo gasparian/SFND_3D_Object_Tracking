@@ -212,13 +212,10 @@ void computeTTCCamera(std::vector<cv::KeyPoint> &kptsPrev, std::vector<cv::KeyPo
         return;
     }
 
-    // compute camera-based TTC from distance ratios
-    double meanDistRatio = std::accumulate(distRatios.begin(), distRatios.end(), 0.0) / s;
-
+    
     double dT = 1. / frameRate;
-    // TTC = -dT / (1 - meanDistRatio);
 
-    // median distance ratio
+    // compute camera-based TTC from median distance ratio
     std::sort(distRatios.begin(), distRatios.end());
     double medianDistRatio;
     long medIndex = floor(distRatios.size() / 2.0);
@@ -228,7 +225,7 @@ void computeTTCCamera(std::vector<cv::KeyPoint> &kptsPrev, std::vector<cv::KeyPo
       medianDistRatio = distRatios[medIndex];
 
     // DEBUG
-    cout << "Median ratio: " << medianDistRatio << endl;
+    cout << "Median distance ratio: " << medianDistRatio << endl;
     // DEBUG
 
     // ratio must be > 1 to get the valid, positive TTC 
