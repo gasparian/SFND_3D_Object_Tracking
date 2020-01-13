@@ -81,7 +81,7 @@ If we look at the computed TTC, it can be immediately noticed 2 outliers with TT
 
 <p align="center"> <img src="images/lidar_ttc.png" height="300" /> </p>  
 
-But when we look at the distance to the precending vehicle (from the lidar measurements) and, especially, at it's time derivative (or difference approximation, to be precise) - it looks like the precending vehicle moves forward... But, I'd better say that it is some noise in distance measurements.  
+But when we look at the distance to the precending vehicle (from the lidar measurements) and, especially, at it's time derivative (or difference approximation, to be precise) - it looks like the precending vehicle moves forward, so distance between ego and precending vehicles growing and derivative becomes positive. And I should say, that it likely can be caused by some noise in distance measurements.  
 
 <p align="center"> <img src="images/lidar_x_min.png" height="300" />  <img src="images/lidar_x_min_dt.png" height="300" /> </p>  
 
