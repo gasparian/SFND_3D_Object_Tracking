@@ -27,6 +27,9 @@ int main(int argc, const char *argv[])
 {
     /* INIT VARIABLES AND DATA STRUCTURES */
 
+    string detectorType = "FAST";
+    string descriptorType = "ORB";
+
     // data location
     string dataPath = "../";
 
@@ -152,7 +155,9 @@ int main(int argc, const char *argv[])
 
         // extract 2D keypoints from current image
         // string detectorType = "SHITOMASI";
-        string detectorType = argv[1]; // get type from arguments
+        if (argc > 1) {
+            detectorType = argv[1]; // get type from arguments
+        }
 
         vector<cv::KeyPoint> keypoints; // create empty feature list for current image
 
@@ -193,7 +198,9 @@ int main(int argc, const char *argv[])
 
         
         // string descriptorType = "BRISK"; // BRISK, BRIEF, ORB, FREAK, AKAZE, SIFT
-        string descriptorType = argv[2]; // get type from arguments
+        if (argc > 1) {
+            descriptorType = argv[2]; // get type from arguments
+        }
 
         cv::Mat descriptors;
         descKeypoints(dataBuffer.getItem(1)->keypoints, dataBuffer.getItem(1)->cameraImg, descriptors, descriptorType);

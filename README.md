@@ -73,11 +73,14 @@ rm -rf ~/.cache/*
 
 ## Report  
 
-[Link to spreadsheet](https://docs.google.com/spreadsheets/d/1kIJuspA_IKuvyX_ubBmtlJx4LZ6J1_Uemq9vPAbIhl8/edit?usp=sharing)  
+[Link to spreadsheet](https://docs.google.com/spreadsheets/d/1kIJuspA_IKuvyX_ubBmtlJx4LZ6J1_Uemq9vPAbIhl8/edit?usp=sharing).  
 
 ### Lidar TTC  
 
-<p align="center"> <img src="images/lidar_ttc.png" height="300" /> <img src="images/lidar_ttc_dt.png" height="300" /> </p>  
+<p align="center"> <img src="images/lidar_ttc.png" height="300" /> </p>  
+
+<p align="center"> <img src="images/lidar_x_min.png" height="300" /> </p>  
+<p align="center"> <img src="images/lidar_x_min_dt.png" height="300" /> </p>  
 
 ### Camera TTC  
 
