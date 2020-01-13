@@ -73,22 +73,36 @@ rm -rf ~/.cache/*
 
 ## Report  
 
-[Link to spreadsheet](https://docs.google.com/spreadsheets/d/1kIJuspA_IKuvyX_ubBmtlJx4LZ6J1_Uemq9vPAbIhl8/edit?usp=sharing).  
+[Link to the "raw" spreadsheet](https://docs.google.com/spreadsheets/d/1kIJuspA_IKuvyX_ubBmtlJx4LZ6J1_Uemq9vPAbIhl8/edit?usp=sharing).  
 
 ### Lidar TTC  
 
+If we look at the computed TTC, it can be easily seen 2 outliers with TTC < 0 and one with pretty large TTC ~34 seconds.  
+
 <p align="center"> <img src="images/lidar_ttc.png" height="300" /> </p>  
 
-<p align="center"> <img src="images/lidar_x_min.png" height="300" /> </p>  
-<p align="center"> <img src="images/lidar_x_min_dt.png" height="300" /> </p>  
+But when we look at the distance to the precending vehicle (from the lidar measurements) and, especially, at it's time derivative (or difference approximation, to be precise) - it looks like the precending vehicle moves forward... But, I'd better say that it is some noise in distance measurements.  
+
+<p align="center"> <img src="images/lidar_x_min.png" height="300" />  <img src="images/lidar_x_min_dt.png" height="300" /> </p>  
+
+The same is with the large TTC values - it occured when the measured distance derivative goes up, but doesn't reach zero - in other words the distance slightly increases at a moment.  
 
 ### Camera TTC  
 
-FAST+ORB  
-AKAZE+ORB  
-AKAZE+SIFT  
+I've compared all possible combinations of the given detectors and feature extractors, so here is a short summary:  
 
-<p align="center"> <img src="images/camera_ttc.png" height="300" />  </p>  
+ - **Harris detector** always makes result bad - a lot of nans in TTC.  
+ - **SIFT keypoints + FREAK descriptors**: ~80% of TTC < 0 - wich is also bad, since we can't distinguish increasing and decreasing distance;  
+ - **FAST keypoints + BRISK descriptors**: another problem - huge TTC dispersion;  
 
+   Actually, the reason of above results is that median distance ratio sometime becomes slightly less or == 1, which is mostly can be caused by "weak" keypoints detection algorithm.  
 
+ - robust examples of detection & feature extraction algorithms which gives **repeatable and stable TTC**, are:  
+     - **FAST keypoints + ORB descriptors** (also fastest pair as well);  
+     - **AKAZE keypoints + ORB descriptors**;  
+     - **AKAZE keypoints + SIFT descriptors**;  
+   Examples of estimated TTC showed below:  
+   <p align="center"> <img src="images/camera_ttc.png" height="300" />  </p>  
+
+***Here is an example of TTC estimation using both lidar and camera (FAST+ORB processing)***  
 <p align="center"> <img src="images/ttc.gif" height="300" />  </p>  
