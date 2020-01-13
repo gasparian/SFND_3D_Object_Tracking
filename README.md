@@ -91,7 +91,7 @@ The same is with the large TTC values - it occured when the measured distance de
 
 I've compared all possible combinations of the given detectors and feature extractors, so here is a short summary:  
 
- - **Harris detector** always makes result bad - a lot of nans in TTC.  
+ - **Harris detector** always makes result bad - a lot of nans in TTC;  
  - **SIFT keypoints + FREAK descriptors**: ~80% of TTC < 0 - wich is also bad, since we can't distinguish increasing and decreasing distance;  
  - **FAST keypoints + BRISK descriptors**: another problem - huge TTC dispersion;  
 
