@@ -77,7 +77,7 @@ rm -rf ~/.cache/*
 
 ### Lidar TTC  
 
-If we look at the computed TTC, it can be easily seen 2 outliers with TTC < 0 and one with pretty large TTC ~34 seconds.  
+If we look at the computed TTC, it can be immediately noticed 2 outliers with TTC < 0 and one with pretty large TTC ~34 seconds.  
 
 <p align="center"> <img src="images/lidar_ttc.png" height="300" /> </p>  
 
